@@ -1,23 +1,43 @@
-import logo from './logo.svg';
+import {useState} from "react";
 import './App.css';
 
 function App() {
+  const [name, setName] = useState("")
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleName = (e) => {
+   setName(e.target.value);
+  }
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if(name === "user" && password === "password"){
+      setMessage("Welcome, user!");
+    } else{
+      setMessage("Invalid username or password");
+    }
+  }
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Login Page</h1>
+      <form onSubmit={handleSubmit}>
+      {message && <p>{message}</p>}
+      <label>Username:</label>
+      <input type="text" placeholder="username"  value={name} onChange={handleName} required/>
+      <br/>
+      <label>Password:</label>
+      <input type="password" placeholder="password" value={password} onChange={handlePassword} required/>
+      <br/>
+      <button type="submit">Submit</button>
+      </form>
+      
     </div>
   );
 }
